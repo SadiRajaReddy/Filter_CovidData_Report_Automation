@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="CreateAutomationHubRequestDataFile" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="CreateAutomationHubRequestDataFile" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_Status" Type="InArgument(x:String)" />
     <x:Property Name="in_Reason" Type="InArgument(x:String)" />
@@ -15,11 +15,16 @@
     <x:Property Name="in_PercantageOfNewDeaths" Type="InArgument(x:String)" />
     <x:Property Name="in_DT" Type="InArgument(sd:DataTable)" />
     <x:Property sap2010:Annotation.AnnotationText="Reading Config file" Name="arg_Config" Type="InOutArgument(njl:JObject)" />
+    <x:Property Name="arg_OutputFilePath" Type="InArgument(x:String)" />
+    <x:Property Name="arg_FileLocation" Type="InArgument(x:String)" />
   </x:Members>
+  <this:CreateAutomationHubRequestDataFile.arg_OutputFilePath>
+    <InArgument x:TypeArguments="x:String" />
+  </this:CreateAutomationHubRequestDataFile.arg_OutputFilePath>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1153.33333333333,2757.33333333333</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1153.33333333333,2756.66666666667</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>CreateAutomationHubRequestDataFile_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="37">
@@ -99,7 +104,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Creating Automation Hub Request " DisplayName="CreateAutomationHubRequestDataFile" sap:VirtualizedContainerService.HintSize="848,2692.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Creating Automation Hub Request " DisplayName="CreateAutomationHubRequestDataFile" sap:VirtualizedContainerService.HintSize="848,2692" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="njl:JProperty" Name="WIID" />
       <Variable x:TypeArguments="njl:JProperty" Name="Description" />
@@ -127,7 +132,7 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="806,93.3333333333333" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Trace" Message="[&quot;Create COVID_19  Automationhub Request Data File&quot;]" />
-    <Assign sap:VirtualizedContainerService.HintSize="806,62" sap2010:WorkflowViewState.IdRef="Assign_6">
+    <Assign sap:VirtualizedContainerService.HintSize="806,61.3333333333333" sap2010:WorkflowViewState.IdRef="Assign_6">
       <Assign.To>
         <OutArgument x:TypeArguments="scg:List(njl:JObject)">[MetaData]</OutArgument>
       </Assign.To>
@@ -135,7 +140,7 @@
         <InArgument x:TypeArguments="scg:List(njl:JObject)">[new List(of JObject)]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:ExcelApplicationScope Password="{x:Null}" sap2010:Annotation.AnnotationText="Opening Excel to write the Output in it" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="806,2334.66666666667" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" WorkbookPath="[arg_Config(&quot;directories&quot;)(&quot;OutputFilePath&quot;).tostring]">
+    <ui:ExcelApplicationScope Password="{x:Null}" sap2010:Annotation.AnnotationText="Opening Excel to write the Output in it" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="806,2334.66666666667" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" WorkbookPath="[arg_OutputFilePath+Environment.UserName+arg_FileLocation]">
       <ui:ExcelApplicationScope.Body>
         <ActivityAction x:TypeArguments="ui:WorkbookApplication">
           <ActivityAction.Argument>
@@ -150,7 +155,7 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:ExcelReadRange AddHeaders="True" sap2010:Annotation.AnnotationText="Reading Output  Sheet1 in the excel" DataTable="[Out_DT]" DisplayName="Read Range" sap:VirtualizedContainerService.HintSize="730,89.3333333333333" sap2010:WorkflowViewState.IdRef="ExcelReadRange_1" SheetName="Sheet1">
+            <ui:ExcelReadRange AddHeaders="True" sap2010:Annotation.AnnotationText="Reading Output  Sheet1 in the excel" DataTable="[Out_DT]" DisplayName="Read Range" sap:VirtualizedContainerService.HintSize="730,89.3333333333333" sap2010:WorkflowViewState.IdRef="ExcelReadRange_1" SheetName="[arg_Config(&quot;OutputFileSheetName1&quot;).tostring]">
               <ui:ExcelReadRange.Range>
                 <InArgument x:TypeArguments="x:String">
                   <Literal x:TypeArguments="x:String" Value="" />
@@ -410,10 +415,10 @@
                           </Assign>
                           <Assign sap:VirtualizedContainerService.HintSize="262,61.3333333333333" sap2010:WorkflowViewState.IdRef="Assign_10">
                             <Assign.To>
-                              <OutArgument x:TypeArguments="njl:JToken">[io_SummaryResultData("Failed")]</OutArgument>
+                              <OutArgument x:TypeArguments="njl:JToken">[io_SummaryResultData("Success")]</OutArgument>
                             </Assign.To>
                             <Assign.Value>
-                              <InArgument x:TypeArguments="njl:JToken">[(CInt(io_SummaryResultData("Failed")) + 1).ToString]</InArgument>
+                              <InArgument x:TypeArguments="njl:JToken">[(CInt(io_SummaryResultData("Success")) + 1).ToString]</InArgument>
                             </Assign.Value>
                           </Assign>
                         </Sequence>
